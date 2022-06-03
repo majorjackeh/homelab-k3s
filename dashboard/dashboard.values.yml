@@ -1,0 +1,6 @@
+ingress:
+  hosts:
+  - k8.domain.local
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"

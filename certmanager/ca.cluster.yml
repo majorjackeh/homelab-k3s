@@ -1,0 +1,32 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: domain-local-ca
+  namespace: cert-manager
+spec:
+  isCA: true
+  commonName: domain.local
+  secretName: domain-local
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: domain-self-signed-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: domain-self-signed-issuer
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: domain-cluster-issuer
+spec:
+  ca:
+    secretName: domain-local
